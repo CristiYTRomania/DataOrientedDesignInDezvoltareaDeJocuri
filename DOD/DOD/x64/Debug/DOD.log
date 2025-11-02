@@ -1,4 +1,2 @@
-﻿  hello.c
-  hello.cpp
-DOD\x64\Debug\hello.obj : warning LNK4042: object specified more than once; extras ignored
+﻿  hello.cpp
   DOD.vcxproj -> C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\x64\Debug\DOD.exe
