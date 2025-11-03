@@ -16,8 +16,9 @@ int main()
 	size_t n = v.size(); /// size_t = unsigned long long
 	for (auto& x : v)
 		x += (long double)LLONG_MAX;
+	cout << fixed;
 	for (auto x : v)
-		cout << fixed << x << ' ';
+		cout << x << ' ';
 	reverse(v.begin(), v.end());
 	cout << endl;
 	for (it = v.begin(); it != v.end(); it++)
@@ -25,14 +26,10 @@ int main()
 		cout << *it << ' ';
 		sum += *it;
 	}
-	cout << endl;
-	cout << "Hello world!" << endl;
-	cout << sum / (long double)n << endl;
-	cout << sum / (long double)0 << endl;
-	cout << (sum * (long double)0.0) / (long double)0 << endl;
-	cout << ((long double)0 == (long double)0) << endl;
-	cout << *find(v.begin(), v.end(), (long double)LLONG_MAX) << endl;
-	cout << (find(v.begin(), v.end(), (long double)LLONG_MAX)  != v.end());
-	
+	cout << endl << "Media numerelor este: " << sum / (long double)n << endl;
+	cout << "1/0 = " << sum / (long double)0 << endl;
+	cout << "0/0 = " << (sum * (long double)0.0) / (long double)0 << endl;
+	cout << "LLONG_MAX = " << * find(v.begin(), v.end(), (long double)LLONG_MAX) << endl;
+	cout << "Exista LLONG_MAX: " << (find(v.begin(), v.end(), (long double)LLONG_MAX) != v.end());
 	return 0;
 }
