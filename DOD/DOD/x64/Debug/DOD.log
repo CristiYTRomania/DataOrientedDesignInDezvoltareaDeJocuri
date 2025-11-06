@@ -1,3 +1,4 @@
 ﻿  hello.cpp
 DOD\x64\Debug\hello.obj : warning LNK4042: object specified more than once; extras ignored
+LINK : warning LNK4067: ambiguous entry point; selected 'mainCRTStartup'
   DOD.vcxproj -> C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\x64\Debug\DOD.exe
