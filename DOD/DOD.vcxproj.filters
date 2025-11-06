@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="1clear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="hello.c">
       <Filter>Source Files</Filter>
     </ClCompile>
