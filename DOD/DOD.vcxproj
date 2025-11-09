@@ -136,8 +136,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="1clear.cpp" />
-    <ClCompile Include="hello.c" />
-    <ClCompile Include="hello.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Downloads\SDL-release-3.2.24\VisualC\SDL\SDL.vcxproj">

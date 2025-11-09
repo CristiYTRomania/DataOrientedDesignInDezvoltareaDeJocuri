@@ -1,70 +1,78 @@
-/* clear.c ... */
-
-/*
- * This example code creates an SDL window and renderer, and then clears the
- * window to a different color every frame, so you'll effectively get a window
- * that's smoothly fading between colors.
- *
- * This code is public domain. Feel free to use it for any purpose!
- */
-
-#define SDL_MAIN_USE_CALLBACKS 1  /* use the callbacks instead of main() */
-#include <SDL3/SDL.h>
+#define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL_main.h>
+#include <SDL3/SDL.h>
 
- /* We will use this renderer to draw into this window every frame. */
-static SDL_Window* window = NULL;
-static SDL_Renderer* renderer = NULL;
+SDL_GPUDevice* device;
 
-/* This function runs once at startup. */
-SDL_AppResult SDL_AppInit(void** appstate, int argc, char* argv[])
-{
-    SDL_SetAppMetadata("Example Renderer Clear", "1.0", "com.example.renderer-clear");
+SDL_Window* window;
 
-    if (!SDL_Init(SDL_INIT_VIDEO)) {
-        SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
-        return SDL_APP_FAILURE;
-    }
-
-    if (!SDL_CreateWindowAndRenderer("examples/renderer/clear", 640, 480, SDL_WINDOW_RESIZABLE, &window, &renderer)) {
-        SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
-        return SDL_APP_FAILURE;
-    }
-    SDL_SetRenderLogicalPresentation(renderer, 640, 480, SDL_LOGICAL_PRESENTATION_LETTERBOX);
-
-    return SDL_APP_CONTINUE;  /* carry on with the program! */
-}
-
-/* This function runs when a new event (mouse input, keypresses, etc) occurs. */
 SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 {
-    if (event->type == SDL_EVENT_QUIT) {
-        return SDL_APP_SUCCESS;  /* end the program, reporting success to the OS. */
-    }
-    return SDL_APP_CONTINUE;  /* carry on with the program! */
+	// close the window on request
+	if (event->type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
+	{
+		return SDL_APP_SUCCESS;
+	}
+
+	return SDL_APP_CONTINUE;
 }
 
-/* This function runs once per frame, and is the heart of the program. */
-SDL_AppResult SDL_AppIterate(void* appstate)
+SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv)
 {
-    const double now = ((double)SDL_GetTicks()) / 1000.0;  /* convert from milliseconds to seconds. */
-    /* choose the color for the frame we will draw. The sine wave trick makes it fade between colors smoothly. */
-    const float red = (float)(0.5 + 0.5 * SDL_sin(now));
-    const float green = (float)(0.5 + 0.5 * SDL_sin(now + SDL_PI_D * 2 / 3));
-    const float blue = (float)(0.5 + 0.5 * SDL_sin(now + SDL_PI_D * 4 / 3));
-    SDL_SetRenderDrawColorFloat(renderer, red, green, blue, SDL_ALPHA_OPAQUE_FLOAT);  /* new color, full alpha. */
+	// create a window
+	window = SDL_CreateWindow("Hello, Triangle!", 960, 540, SDL_WINDOW_RESIZABLE);
 
-    /* clear the window to the draw color. */
-    SDL_RenderClear(renderer);
+	// create the device
+	device = SDL_CreateGPUDevice(SDL_GPU_SHADERFORMAT_SPIRV, false, NULL);
+	SDL_ClaimWindowForGPUDevice(device, window);
 
-    /* put the newly-cleared rendering on the screen. */
-    SDL_RenderPresent(renderer);
-
-    return SDL_APP_CONTINUE;  /* carry on with the program! */
+	return SDL_APP_CONTINUE;
 }
 
-/* This function runs once at shutdown. */
 void SDL_AppQuit(void* appstate, SDL_AppResult result)
 {
-    /* SDL will clean up the window/renderer for us. */
+	// destroy the GPU device
+	SDL_DestroyGPUDevice(device);
+
+	// destroy the window
+	SDL_DestroyWindow(window);
+}
+
+SDL_AppResult SDL_AppIterate(void* appstate)
+{
+	// acquire the command buffer
+	SDL_GPUCommandBuffer* commandBuffer = SDL_AcquireGPUCommandBuffer(device);
+
+	// get the swapchain texture
+	SDL_GPUTexture* swapchainTexture;
+	Uint32 width, height;
+	SDL_WaitAndAcquireGPUSwapchainTexture(commandBuffer, window, &swapchainTexture, &width, &height);
+
+	// end the frame early if a swapchain texture is not available
+	if (swapchainTexture == NULL)
+	{
+		// you must always submit the command buffer
+		SDL_SubmitGPUCommandBuffer(commandBuffer);
+		return SDL_APP_CONTINUE;
+	}
+
+	// create the color target
+	SDL_GPUColorTargetInfo colorTargetInfo{};
+	colorTargetInfo.clear_color = { 240 / 255.0f, 240 / 255.0f, 240 / 255.0f, 255 / 255.0f };
+	colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
+	colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
+	colorTargetInfo.texture = swapchainTexture;
+
+	// begin a render pass
+	SDL_GPURenderPass* renderPass = SDL_BeginGPURenderPass(commandBuffer, &colorTargetInfo, 1, NULL);
+
+	// draw something
+
+	// end the render pass
+	SDL_EndGPURenderPass(renderPass);
+
+	// submit the command buffer
+	SDL_SubmitGPUCommandBuffer(commandBuffer);
+
+	return SDL_APP_CONTINUE;
 }

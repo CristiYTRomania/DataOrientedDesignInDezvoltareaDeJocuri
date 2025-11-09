@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{53F3494A-4150-4163-9E3F-A1C6C08A6A73}|DOD.vcxproj|C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\hello.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{53F3494A-4150-4163-9E3F-A1C6C08A6A73}|DOD.vcxproj|solutionrelative:hello.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{53F3494A-4150-4163-9E3F-A1C6C08A6A73}|DOD.vcxproj|C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\hello.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{53F3494A-4150-4163-9E3F-A1C6C08A6A73}|DOD.vcxproj|solutionrelative:hello.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{53F3494A-4150-4163-9E3F-A1C6C08A6A73}|DOD.vcxproj|C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\1clear.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{53F3494A-4150-4163-9E3F-A1C6C08A6A73}|DOD.vcxproj|solutionrelative:1clear.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -27,40 +19,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "hello.cpp",
-              "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\hello.cpp",
-              "RelativeDocumentMoniker": "hello.cpp",
-              "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\hello.cpp",
-              "RelativeToolTip": "hello.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-06T12:44:57.49Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "hello.c",
-              "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\hello.c",
-              "RelativeDocumentMoniker": "hello.c",
-              "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\hello.c",
-              "RelativeToolTip": "hello.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-11-06T12:44:56.637Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "1clear.cpp",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\1clear.cpp",
               "RelativeDocumentMoniker": "1clear.cpp",
-              "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\1clear.cpp",
-              "RelativeToolTip": "1clear.cpp",
-              "ViewState": "AgIAACEAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\DataOrientedDesignInDezvoltareaDeJocuri\\DOD\\1clear.cpp*",
+              "RelativeToolTip": "1clear.cpp*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-11-06T12:36:48.509Z"
+              "WhenOpened": "2025-11-06T12:36:48.509Z",
+              "EditorCaption": ""
             }
           ]
         }
