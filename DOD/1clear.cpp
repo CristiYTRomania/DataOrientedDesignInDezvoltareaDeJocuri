@@ -20,7 +20,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv)
 {
 	// create a window
-	window = SDL_CreateWindow("Hello, Triangle!", 960, 540, SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow("Culoarea violet!", 960, 540, SDL_WINDOW_RESIZABLE);
 
 	// create the device
 	device = SDL_CreateGPUDevice(SDL_GPU_SHADERFORMAT_SPIRV, false, NULL);
@@ -58,7 +58,8 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
 	// create the color target
 	SDL_GPUColorTargetInfo colorTargetInfo{};
-	colorTargetInfo.clear_color = { 240 / 255.0f, 240 / 255.0f, 240 / 255.0f, 255 / 255.0f };
+	int red = 255, green = 0, blue = 200, transparency = 255;
+	colorTargetInfo.clear_color = { red / 255.0f, green / 255.0f, blue / 255.0f, transparency / 255.0f };
 	colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
 	colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
 	colorTargetInfo.texture = swapchainTexture;
