@@ -1,6 +1,7 @@
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL.h>
+#include "raylib.h"
 
 SDL_GPUDevice* device;
 
@@ -20,7 +21,7 @@ SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
 SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv)
 {
 	// create a window
-	window = SDL_CreateWindow("Culoarea violet!", 960, 540, SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow("Culoarea roz!", 960, 540, SDL_WINDOW_RESIZABLE);
 
 	// create the device
 	device = SDL_CreateGPUDevice(SDL_GPU_SHADERFORMAT_SPIRV, false, NULL);
@@ -58,7 +59,7 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
 	// create the color target
 	SDL_GPUColorTargetInfo colorTargetInfo{};
-	int red = 255, green = 0, blue = 200, transparency = 255;
+	int red = 255, green = 20, blue = 150, transparency = 255;
 	colorTargetInfo.clear_color = { red / 255.0f, green / 255.0f, blue / 255.0f, transparency / 255.0f };
 	colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
 	colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
@@ -77,3 +78,21 @@ SDL_AppResult SDL_AppIterate(void* appstate)
 
 	return SDL_APP_CONTINUE;
 }
+/*
+int main(void)
+{
+	InitWindow(800, 450, "raylib [core] example - basic window");
+
+	while (!WindowShouldClose())
+	{
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+	return 0;
+}
+*/
