@@ -1,98 +1,172 @@
-#define SDL_MAIN_USE_CALLBACKS
-#include <SDL3/SDL_main.h>
+#define SDL_MAIN_HANDLED 
 #include <SDL3/SDL.h>
-#include "raylib.h"
+#include <SDL3/SDL_main.h>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <random>
+#include <ctime>
 
-SDL_GPUDevice* device;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 720;
+const int NUM_OBJECTS = 50 * 1000;
+const float OBJECT_SIZE = 2.0f;
 
-SDL_Window* window;
+struct EntityOOP {
+    float x, y;
+    float vx, vy;
+    Uint8 r, g, b;
 
-SDL_AppResult SDL_AppEvent(void* appstate, SDL_Event* event)
-{
-	// close the window on request
-	if (event->type == SDL_EVENT_WINDOW_CLOSE_REQUESTED)
-	{
-		return SDL_APP_SUCCESS;
-	}
+    void update() {
+        x += vx;
+        y += vy;
 
-	return SDL_APP_CONTINUE;
+        // Coliziune
+        if (x <= 0 || x >= SCREEN_WIDTH  - OBJECT_SIZE) vx *= -1;
+        if (y <= 0 || y >= SCREEN_HEIGHT - OBJECT_SIZE) vy *= -1;
+    }
+};
+
+struct SystemDOD {
+    std::vector<float> x;
+    std::vector<float> y;
+    std::vector<float> vx;
+    std::vector<float> vy;
+    std::vector<Uint8> r;
+    std::vector<Uint8> g;
+    std::vector<Uint8> b;
+
+    void reserve(int count) {
+        x.reserve(count); y.reserve(count);
+        vx.reserve(count); vy.reserve(count);
+        r.reserve(count); g.reserve(count); b.reserve(count);
+    }
+
+    void add(float _x, float _y, float _vx, float _vy, Uint8 _r, Uint8 _g, Uint8 _b) {
+        x.push_back(_x); y.push_back(_y);
+        vx.push_back(_vx); vy.push_back(_vy);
+        r.push_back(_r); g.push_back(_g); b.push_back(_b);
+    }
+
+    void update(int count) {
+        for (int i = 0; i < count; i++) {
+            x[i] += vx[i];
+            y[i] += vy[i];
+
+            if (x[i] <= 0 || x[i] >= SCREEN_WIDTH  - OBJECT_SIZE) vx[i] *= -1;
+            if (y[i] <= 0 || y[i] >= SCREEN_HEIGHT - OBJECT_SIZE) vy[i] *= -1;
+        }
+    }
+};
+
+
+int main(int argc, char* argv[]) {
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
+        SDL_Log("Eroare SDL: %s", SDL_GetError());
+        return -1;
+    }
+
+    SDL_Window*   window   = NULL;
+    SDL_Renderer* renderer = NULL;
+
+    if (!SDL_CreateWindowAndRenderer("SDL3: OOP vs DOD", SCREEN_WIDTH, SCREEN_HEIGHT, 0, &window, &renderer))
+    {
+        SDL_Log("Nu s-a putut crea fereastra/renderer: %s", SDL_GetError());
+        return -1;
+    }
+
+    // Generare Date
+    std::vector<EntityOOP> objectsOOP;
+    SystemDOD systemDOD;
+    systemDOD.reserve(NUM_OBJECTS);
+
+    std::mt19937 rng((unsigned int)time(0));
+    std::uniform_real_distribution<float> distX(0, (float)SCREEN_WIDTH);
+    std::uniform_real_distribution<float> distY(0, (float)SCREEN_HEIGHT);
+    std::uniform_real_distribution<float> distV(-2.0f, 2.0f);
+    std::uniform_int_distribution<int> distC(50, 255);
+
+    SDL_Log("Se genereaza %d obiecte...", NUM_OBJECTS);
+
+    for (int i = 0; i < NUM_OBJECTS; i++)
+    {
+        float x  = distX(rng);
+        float y  = distY(rng);
+        float vx = distV(rng);
+        float vy = distV(rng);
+        Uint8 r  = (Uint8)distC(rng);
+        Uint8 g  = (Uint8)distC(rng);
+        Uint8 b  = (Uint8)distC(rng);
+
+        objectsOOP.push_back({ x, y, vx, vy, r, g, b });
+        systemDOD.add(x, y, vx, vy, r, g, b);
+    }
+
+    bool running = true;
+    bool useDOD = false; // Pornim cu OOP
+    SDL_Event e;
+
+    Uint64 startPerf, endPerf;
+    double deltaTime; // SDL3 preferã double uneori, dar float e ok
+
+    while (running) {
+        startPerf = SDL_GetPerformanceCounter();
+
+        // --- INPUT ---
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_EVENT_QUIT) {
+                running = false;
+            }
+            if (e.type == SDL_EVENT_KEY_DOWN) {
+                if (e.key.key == SDLK_SPACE) {
+                    useDOD = !useDOD;
+                }
+            }
+        }
+
+        // UPDATE 
+        if (useDOD) {
+            systemDOD.update(NUM_OBJECTS);
+        }
+        else {
+            for (auto& obj : objectsOOP) {
+                obj.update();
+            }
+        }
+
+        // RENDER 
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        if (useDOD) {
+            for (int i = 0; i < NUM_OBJECTS; i++) {
+                SDL_SetRenderDrawColor(renderer, systemDOD.r[i], systemDOD.g[i], systemDOD.b[i], 255);
+                SDL_FRect rect = { systemDOD.x[i], systemDOD.y[i], OBJECT_SIZE, OBJECT_SIZE };
+                SDL_RenderFillRect(renderer, &rect);
+            }
+        }
+        else {
+            for (const auto& obj : objectsOOP) {
+                SDL_SetRenderDrawColor(renderer, obj.r, obj.g, obj.b, 255);
+                SDL_FRect rect = { obj.x, obj.y, OBJECT_SIZE, OBJECT_SIZE };
+                SDL_RenderFillRect(renderer, &rect);
+            }
+        }
+
+        SDL_RenderPresent(renderer);
+
+        endPerf = SDL_GetPerformanceCounter();
+        deltaTime = (double)(endPerf - startPerf) / (double)SDL_GetPerformanceFrequency();
+        int fps = (int)(1.0 / deltaTime);
+
+        std::string title = "SDL3 | " + std::string(useDOD ? "DOD" : "OOP") +
+            " | FPS: " + std::to_string(fps);
+        SDL_SetWindowTitle(window, title.c_str());
+    }
+
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+
+    return 0;
 }
-
-SDL_AppResult SDL_AppInit(void** appstate, int argc, char** argv)
-{
-	// create a window
-	window = SDL_CreateWindow("Culoarea roz!", 960, 540, SDL_WINDOW_RESIZABLE);
-
-	// create the device
-	device = SDL_CreateGPUDevice(SDL_GPU_SHADERFORMAT_SPIRV, false, NULL);
-	SDL_ClaimWindowForGPUDevice(device, window);
-
-	return SDL_APP_CONTINUE;
-}
-
-void SDL_AppQuit(void* appstate, SDL_AppResult result)
-{
-	// destroy the GPU device
-	SDL_DestroyGPUDevice(device);
-
-	// destroy the window
-	SDL_DestroyWindow(window);
-}
-
-SDL_AppResult SDL_AppIterate(void* appstate)
-{
-	// acquire the command buffer
-	SDL_GPUCommandBuffer* commandBuffer = SDL_AcquireGPUCommandBuffer(device);
-
-	// get the swapchain texture
-	SDL_GPUTexture* swapchainTexture;
-	Uint32 width, height;
-	SDL_WaitAndAcquireGPUSwapchainTexture(commandBuffer, window, &swapchainTexture, &width, &height);
-
-	// end the frame early if a swapchain texture is not available
-	if (swapchainTexture == NULL)
-	{
-		// you must always submit the command buffer
-		SDL_SubmitGPUCommandBuffer(commandBuffer);
-		return SDL_APP_CONTINUE;
-	}
-
-	// create the color target
-	SDL_GPUColorTargetInfo colorTargetInfo{};
-	int red = 255, green = 20, blue = 150, transparency = 255;
-	colorTargetInfo.clear_color = { red / 255.0f, green / 255.0f, blue / 255.0f, transparency / 255.0f };
-	colorTargetInfo.load_op = SDL_GPU_LOADOP_CLEAR;
-	colorTargetInfo.store_op = SDL_GPU_STOREOP_STORE;
-	colorTargetInfo.texture = swapchainTexture;
-
-	// begin a render pass
-	SDL_GPURenderPass* renderPass = SDL_BeginGPURenderPass(commandBuffer, &colorTargetInfo, 1, NULL);
-
-	// draw something
-
-	// end the render pass
-	SDL_EndGPURenderPass(renderPass);
-
-	// submit the command buffer
-	SDL_SubmitGPUCommandBuffer(commandBuffer);
-
-	return SDL_APP_CONTINUE;
-}
-/*
-int main(void)
-{
-	InitWindow(800, 450, "raylib [core] example - basic window");
-
-	while (!WindowShouldClose())
-	{
-		BeginDrawing();
-		ClearBackground(RAYWHITE);
-		DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-		EndDrawing();
-	}
-
-	CloseWindow();
-
-	return 0;
-}
-*/
