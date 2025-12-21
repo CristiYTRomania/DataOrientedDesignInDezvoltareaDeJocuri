@@ -75,7 +75,6 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    // Generare Date
     std::vector<EntityOOP> objectsOOP;
     SystemDOD systemDOD;
     systemDOD.reserve(NUM_OBJECTS);
@@ -107,12 +106,11 @@ int main(int argc, char* argv[]) {
     SDL_Event e;
 
     Uint64 startPerf, endPerf;
-    double deltaTime; // SDL3 preferã double uneori, dar float e ok
+    double deltaTime;
 
     while (running) {
         startPerf = SDL_GetPerformanceCounter();
 
-        // --- INPUT ---
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_EVENT_QUIT) {
                 running = false;
@@ -124,7 +122,6 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        // UPDATE 
         if (useDOD) {
             systemDOD.update(NUM_OBJECTS);
         }
@@ -134,7 +131,6 @@ int main(int argc, char* argv[]) {
             }
         }
 
-        // RENDER 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
