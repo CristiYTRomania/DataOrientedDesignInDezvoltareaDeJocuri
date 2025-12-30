@@ -22,7 +22,7 @@ struct EntityOOP {
         y += vy;
 
         // Coliziune
-        if (x <= 0 || x >= SCREEN_WIDTH  - OBJECT_SIZE) vx *= -1;
+        if (x <= 0 || x >= SCREEN_WIDTH - OBJECT_SIZE) vx *= -1;
         if (y <= 0 || y >= SCREEN_HEIGHT - OBJECT_SIZE) vy *= -1;
     }
 };
@@ -53,7 +53,7 @@ struct SystemDOD {
             x[i] += vx[i];
             y[i] += vy[i];
 
-            if (x[i] <= 0 || x[i] >= SCREEN_WIDTH  - OBJECT_SIZE) vx[i] *= -1;
+            if (x[i] <= 0 || x[i] >= SCREEN_WIDTH - OBJECT_SIZE) vx[i] *= -1;
             if (y[i] <= 0 || y[i] >= SCREEN_HEIGHT - OBJECT_SIZE) vy[i] *= -1;
         }
     }
@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    SDL_Window*   window   = NULL;
+    SDL_Window* window = NULL;
     SDL_Renderer* renderer = NULL;
 
     if (!SDL_CreateWindowAndRenderer("SDL3: OOP vs DOD", SCREEN_WIDTH, SCREEN_HEIGHT, 0, &window, &renderer))
@@ -89,13 +89,13 @@ int main(int argc, char* argv[]) {
 
     for (int i = 0; i < NUM_OBJECTS; i++)
     {
-        float x  = distX(rng);
-        float y  = distY(rng);
+        float x = distX(rng);
+        float y = distY(rng);
         float vx = distV(rng);
         float vy = distV(rng);
-        Uint8 r  = (Uint8)distC(rng);
-        Uint8 g  = (Uint8)distC(rng);
-        Uint8 b  = (Uint8)distC(rng);
+        Uint8 r = (Uint8)distC(rng);
+        Uint8 g = (Uint8)distC(rng);
+        Uint8 b = (Uint8)distC(rng);
 
         objectsOOP.push_back({ x, y, vx, vy, r, g, b });
         systemDOD.add(x, y, vx, vy, r, g, b);
