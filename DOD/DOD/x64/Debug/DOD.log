@@ -1,1 +1,28 @@
-﻿  DOD.vcxproj -> C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\x64\Debug\DOD.exe
+﻿  joc.cpp
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(223,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(224,20): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(251,31): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(251,31): warning C4244:         with
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(251,31): warning C4244:         [
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(251,31): warning C4244:             _Ty=float
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(251,31): warning C4244:         ]
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(252,31): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(252,31): warning C4244:         with
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(252,31): warning C4244:         [
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(252,31): warning C4244:             _Ty=float
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(252,31): warning C4244:         ]
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(290,54): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(290,54): warning C4244:         with
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(290,54): warning C4244:         [
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(290,54): warning C4244:             _Ty=float
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(290,54): warning C4244:         ]
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(291,55): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(291,55): warning C4244:         with
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(291,55): warning C4244:         [
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(291,55): warning C4244:             _Ty=float
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(291,55): warning C4244:         ]
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(436,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(437,29): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(466,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\joc.cpp(467,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  DOD.vcxproj -> C:\Users\Asus\Documents\GitHub\DataOrientedDesignInDezvoltareaDeJocuri\DOD\x64\Debug\DOD.exe
