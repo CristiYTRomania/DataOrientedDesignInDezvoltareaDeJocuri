@@ -6,7 +6,7 @@ Acesta este repozitoriul de GitHub în care îmi voi face proiectul la materia "
 
 ## Controls
 
-- T - ToggleMonsterMode
+- T - Toggle Monster Mode
 - Plus - Add 1000 particles
 - Minus - Remove 1000 particles
 - N - Add 5 enemies
