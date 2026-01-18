@@ -13,3 +13,4 @@ Acesta este repozitoriul de GitHub în care îmi voi face proiectul la materia "
 - M - Remove 5 enemies
 - R - Restart game if finished or lost
 - Tab - Switch OOP/DOD
+- WASD / Arrows - Move the player
